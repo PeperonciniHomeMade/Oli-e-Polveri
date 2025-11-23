@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
@@ -252,10 +253,20 @@
         body: data,
         headers: { 'Accept': 'application/json' }
       })
-      .then(() => window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=1000")
+      .then(() => {
+        if(form.querySelector('[name="prodotto_olio"]')) {
+          window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=1200";
+        } else {
+          window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=500";
+        }
+      })
       .catch(() => {
         alert("Errore di connessione. Verrai reindirizzato comunque al pagamento.");
-        window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=1000";
+        if(form.querySelector('[name="prodotto_olio"]')) {
+          window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=1200";
+        } else {
+          window.location.href = "https://revolut.me/pangiu?currency=EUR&amount=500";
+        }
       });
     }
     function showProductDetail(productId) {
@@ -285,7 +296,7 @@
       <!-- Sezione Olii -->
       <div class="category-header">
         <i class="fa-solid fa-droplet"></i>
-        <h2>Oli Piccanti</h2>
+        <h2>Oli Piccanti 250ml <span style="font-weight:400; font-size:0.92em; color:#ad4600;">(12€ il pezzo)</span></h2>
       </div>
       <ul class="product-list">
         <li onclick="showProductDetail('olio_naga')"><i class="fa-solid fa-pepper-hot"></i> Naga Morich Red</li>
@@ -300,10 +311,16 @@
         <li onclick="showProductDetail('olio_reaper_choc')"><i class="fa-solid fa-pepper-hot"></i> Carolina Reaper Chocolate</li>
         <li onclick="showProductDetail('olio_kraken')"><i class="fa-solid fa-pepper-hot"></i> Kraken Peach</li>
       </ul>
+      <div style="background:#fff4e5; border:1px solid #ffd9b3; color:#ad4600; border-radius:12px; padding:1em 1.3em; margin:1.5em 0; font-size:0.98em;">
+        <strong>Spese di spedizione:</strong> a carico dell’acquirente.<br>
+        • <b>0-2 bottiglie:</b> 10€<br>
+        • <b>3-5 bottiglie:</b> 13€<br>
+        • <b>6 o più bottiglie:</b> <span style="color:#27ae60"><b>spedizione gratuita</b></span>
+      </div>
       <button class="btn-primary" onclick="showForm('olio')">Acquista Olio</button>
       <div class="category-header">
         <i class="fa-solid fa-fire"></i>
-        <h2>Polveri Extra</h2>
+        <h2>Polveri Extra 20g <span style="font-weight:400; font-size:0.92em; color:#ad4600;">(5€ il pezzo)</span></h2>
       </div>
       <ul class="product-list">
         <li onclick="showProductDetail('polveri_borgred')"><i class="fa-solid fa-pepper-hot"></i> Borg 9 Red</li>
@@ -318,8 +335,13 @@
         <li onclick="showProductDetail('polveri_bigmama')"><i class="fa-solid fa-pepper-hot"></i> Big Mama Mustard</li>
         <li onclick="showProductDetail('polveri_habCaramel')"><i class="fa-solid fa-pepper-hot"></i> Habanero Caramel</li>
       </ul>
+      <div style="background:#fff4e5; border:1px solid #ffd9b3; color:#ad4600; border-radius:12px; padding:1em 1.3em; margin:1.5em 0; font-size:0.98em;">
+        <strong>Spese di spedizione:</strong> a carico dell’acquirente.<br>
+        • <b>0-2 bottiglie:</b> 10€<br>
+        • <b>3-5 bottiglie:</b> 13€<br>
+        • <b>6 o più bottiglie:</b> <span style="color:#27ae60"><b>spedizione gratuita</b></span>
+      </div>
       <button class="btn-primary" onclick="showForm('polveri')">Acquista Polveri</button>
-      <!-- SEZIONE CONTATTI -->
       <div class="footer-contacts">
         <button class="contact-toggle" onclick="toggleContatti()">Hai bisogno di aiuto? Contattami</button>
         <div id="contactBox" class="contact-box">
@@ -403,7 +425,7 @@
         </div>
       </form>
     </div>
-    <!-- PAGINE DETTAGLIO PRODOTTI (undici olio + undici polveri, tutte!) -->
+    <!-- Dettagli olio e polveri (tutti, copia/incolla come sopra) -->
     <div id="detail_olio_naga" class="form-page detail-page">
       <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Naga Morich Red</h2></div>
       <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
@@ -412,175 +434,29 @@
       <p><b>Prodotto:</b> Olio extravergine con Naga Morich Red a km zero, piccantezza intensa e persistente.</p>
       <button class="btn-outline" onclick="goBack()">Torna indietro</button>
     </div>
-    <div id="detail_olio_black" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Black Phanter Striato</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
-      <div><b>Scala Scoville:</b> ~1.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Fruttato, retrogusto affumicato, piccantezza alta, per intenditori.</p>
-      <p><b>Prodotto:</b> Olio aromatizzato a km zero, sapore deciso per ricette creative.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_habRS" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Habanero Red Savina</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 350.000–577.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Aroma esotico, tono dolce e pungente, ex record di piccantezza.</p>
-      <p><b>Prodotto:</b> Olio caldo, elegante, solo Habanero Red Savina locale, ottimo per salse e marinature.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_apoc" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Apocalypse Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Peperoncino italiano super hot, aroma intenso, bruciore potente.</p>
-      <p><b>Prodotto:</b> Olio potentissimo, solo per amanti del fuoco, ingredienti a km zero.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_habChoc" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Habanero Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 200.000–425.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Aroma fruttato e cioccolatoso, origine Giamaica.</p>
-      <p><b>Prodotto:</b> Olio dal gusto esotico, da Habanero Chocolate a km zero. Perfetto per piatti etnici.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_death" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Death Spiral Red</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.200.000–1.300.000+ SHU</div>
-      <p><b>Descrizione peperoncino:</b> Aroma fruttato/agrumato, bruciore intenso e immediato.</p>
-      <p><b>Prodotto:</b> Olio fortissimo, solo peperoncini locali selezionati. Per salse ultra-piccanti.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_bigmama" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Big Mama Black</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Frutto grande, colore cioccolato scuro, aroma affumicato e intenso.</p>
-      <p><b>Prodotto:</b> Olio aromatico, potentissimo, solo da Big Mama Black locale.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_reaper_red" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Carolina Reaper Red</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.600.000–2.200.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Il più piccante del mondo, aroma fruttato, bruciore estremo.</p>
-      <p><b>Prodotto:</b> Olio esclusivo da Carolina Reaper Red locale, solo per temerari.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_scorpion" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Scorpion Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.200.000–2.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Sapore intenso e aromatico, colore marrone scuro, bruciore forte e prolungato.</p>
-      <p><b>Prodotto:</b> Olio super hot, ingredienti locali selezionati, perfetto per chi cerca il massimo.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_reaper_choc" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Carolina Reaper Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.400.000–2.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Variante "cioccolato" della Reaper, sapore ancora più aromatico e forte.</p>
-      <p><b>Prodotto:</b> Olio da Carolina Reaper Chocolate locale, per chi vuole il fuoco assoluto.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_olio_kraken" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Kraken Peach</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
-      <div><b>Scala Scoville:</b> 700.000–900.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Raro, color pesca, sapore fruttato, piccante ma meno estremo.</p>
-      <p><b>Prodotto:</b> Olio originale, ingredienti km zero, per chi vuole una piccantezza avvolgente.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <!-- POLVERI (tutte!) -->
-    <div id="detail_polveri_borgred" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Borg 9 Red</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.000.000–1.200.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Incrocio 7 Pot, aromi intensi, bruciore devastante.</p>
-      <p><b>Prodotto:</b> Polvere da peperoncini freschi a km zero, ideale per salse, grigliate, primi piatti.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_borgchoc" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Borg 9 Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.100.000–1.300.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Gusto ricco, terroso, forte e persistente.</p>
-      <p><b>Prodotto:</b> Polvere da Borg 9 Chocolate a km zero, per veri intenditori del piccante.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_habChoc" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero Chocolate</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 200.000–425.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Aroma fruttato, sapore cioccolatoso.</p>
-      <p><b>Prodotto:</b> Polvere gourmet da peperoncini locali, perfetta per piatti etnici e fusion.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_bhutneyde" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Bhut x Neyde Black Orange</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
-      <div><b>Scala Scoville:</b> 750.000–1.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Incrocio raro, profumo agrumato e intenso.</p>
-      <p><b>Prodotto:</b> Polvere intensa da peperoncini artigianali a km zero. Perfetta su piatti orientali.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_habWhite" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero White</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 100.000–350.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Peperoncino bianco, fresco e fruttato.</p>
-      <p><b>Prodotto:</b> Polvere elegante per chi vuole un tocco di piccante senza esagerare. Solo a km zero.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_scotch" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Scotch Bonnet</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 100.000–350.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Caraibico, aroma fruttato, perfetto per cucine etniche.</p>
-      <p><b>Prodotto:</b> Polvere artigianale da filiera corta per sapidità unica e piccantezza tropicale.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_naga" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Naga Morich Red</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
-      <div><b>Scala Scoville:</b> ~800.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Origine India/Bangladesh, gusto intenso.</p>
-      <p><b>Prodotto:</b> Polvere da Naga Morich Red a km zero, perfetta per esplosioni di sapore.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_carored" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Carolina Red</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.600.000–2.200.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Variante Carolina, piccantezza estrema.</p>
-      <p><b>Prodotto:</b> Polvere massima, solo da peperoncini locali selezionati.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_caroyellow" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Carolina Yellow</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div>
-      <div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Variante gialla, punta aromatica più fresca.</p>
-      <p><b>Prodotto:</b> Polvere potentissima a km zero, perfetta per rendere ogni piatto “di fuoco”.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_bigmama" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Big Mama Mustard</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div>
-      <div><b>Scala Scoville:</b> 900.000–1.200.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Piccantezza notevole, gusto erbaceo e originale.</p>
-      <p><b>Prodotto:</b> Polvere da Big Mama locale, per ricette innovative e creative.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
-    <div id="detail_polveri_habCaramel" class="form-page detail-page">
-      <div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero Caramel</h2></div>
-      <div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div>
-      <div><b>Scala Scoville:</b> 200.000–300.000 SHU</div>
-      <p><b>Descrizione peperoncino:</b> Aroma dolce, colore caramello, delicato rispetto ai super-hot.</p>
-      <p><b>Prodotto:</b> Polvere gourmet, perfetta per piatti dolci-salati a base di ingredienti locali.</p>
-      <button class="btn-outline" onclick="goBack()">Torna indietro</button>
-    </div>
+    <div id="detail_olio_black" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Black Phanter Striato</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div><div><b>Scala Scoville:</b> ~1.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Fruttato, retrogusto affumicato, piccantezza alta, per intenditori.</p><p><b>Prodotto:</b> Olio aromatizzato a km zero, sapore deciso per ricette creative.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_habRS" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Habanero Red Savina</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 350.000–577.000 SHU</div><p><b>Descrizione peperoncino:</b> Aroma esotico, tono dolce e pungente, ex record di piccantezza.</p><p><b>Prodotto:</b> Olio caldo, elegante, solo Habanero Red Savina locale, ottimo per salse e marinature.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_apoc" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Apocalypse Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Peperoncino italiano super hot, aroma intenso, bruciore potente.</p><p><b>Prodotto:</b> Olio potentissimo, solo per amanti del fuoco, ingredienti a km zero.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_habChoc" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Habanero Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 200.000–425.000 SHU</div><p><b>Descrizione peperoncino:</b> Aroma fruttato e cioccolatoso, origine Giamaica.</p><p><b>Prodotto:</b> Olio dal gusto esotico, da Habanero Chocolate a km zero. Perfetto per piatti etnici.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_death" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Death Spiral Red</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.200.000–1.300.000+ SHU</div><p><b>Descrizione peperoncino:</b> Aroma fruttato/agrumato, bruciore intenso e immediato.</p><p><b>Prodotto:</b> Olio fortissimo, solo peperoncini locali selezionati. Per salse ultra-piccanti.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_bigmama" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Big Mama Black</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Frutto grande, colore cioccolato scuro, aroma affumicato e intenso.</p><p><b>Prodotto:</b> Olio aromatico, potentissimo, solo da Big Mama Black locale.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_reaper_red" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Carolina Reaper Red</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.600.000–2.200.000 SHU</div><p><b>Descrizione peperoncino:</b> Il più piccante del mondo, aroma fruttato, bruciore estremo.</p><p><b>Prodotto:</b> Olio esclusivo da Carolina Reaper Red locale, solo per temerari.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_scorpion" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Scorpion Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.200.000–2.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Sapore intenso e aromatico, colore marrone scuro, bruciore forte e prolungato.</p><p><b>Prodotto:</b> Olio super hot, ingredienti locali selezionati, perfetto per chi cerca il massimo.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_reaper_choc" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Carolina Reaper Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.400.000–2.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Variante "cioccolato" della Reaper, sapore ancora più aromatico e forte.</p><p><b>Prodotto:</b> Olio da Carolina Reaper Chocolate locale, per chi vuole il fuoco assoluto.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_olio_kraken" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Olio di Kraken Peach</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div><div><b>Scala Scoville:</b> 700.000–900.000 SHU</div><p><b>Descrizione peperoncino:</b> Raro, color pesca, sapore fruttato, piccante ma meno estremo.</p><p><b>Prodotto:</b> Olio originale, ingredienti km zero, per chi vuole una piccantezza avvolgente.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <!-- Polveri DETTAGLIO (tutti, copia/incolla identico) -->
+    <div id="detail_polveri_borgred" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Borg 9 Red</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.000.000–1.200.000 SHU</div><p><b>Descrizione peperoncino:</b> Incrocio 7 Pot, aromi intensi, bruciore devastante.</p><p><b>Prodotto:</b> Polvere da peperoncini freschi a km zero, ideale per salse, grigliate, primi piatti.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_borgchoc" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Borg 9 Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.100.000–1.300.000 SHU</div><p><b>Descrizione peperoncino:</b> Gusto ricco, terroso, forte e persistente.</p><p><b>Prodotto:</b> Polvere da Borg 9 Chocolate a km zero, per veri intenditori del piccante.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_habChoc" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero Chocolate</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 200.000–425.000 SHU</div><p><b>Descrizione peperoncino:</b> Aroma fruttato, sapore cioccolatoso.</p><p><b>Prodotto:</b> Polvere gourmet da peperoncini locali, perfetta per piatti etnici e fusion.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_bhutneyde" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Bhut x Neyde Black Orange</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div><div><b>Scala Scoville:</b> 750.000–1.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Incrocio raro, profumo agrumato e intenso.</p><p><b>Prodotto:</b> Polvere intensa da peperoncini artigianali a km zero. Perfetta su piatti orientali.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_habWhite" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero White</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 100.000–350.000 SHU</div><p><b>Descrizione peperoncino:</b> Peperoncino bianco, fresco e fruttato.</p><p><b>Prodotto:</b> Polvere elegante per chi vuole un tocco di piccante senza esagerare. Solo a km zero.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_scotch" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Scotch Bonnet</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 100.000–350.000 SHU</div><p><b>Descrizione peperoncino:</b> Caraibico, aroma fruttato, perfetto per cucine etniche.</p><p><b>Prodotto:</b> Polvere artigianale da filiera corta per sapidità unica e piccantezza tropicale.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_naga" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Naga Morich Red</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div><div><b>Scala Scoville:</b> ~800.000 SHU</div><p><b>Descrizione peperoncino:</b> Origine India/Bangladesh, gusto intenso.</p><p><b>Prodotto:</b> Polvere da Naga Morich Red a km zero, perfetta per esplosioni di sapore.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_carored" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Carolina Red</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.600.000–2.200.000 SHU</div><p><b>Descrizione peperoncino:</b> Variante Carolina, piccantezza estrema.</p><p><b>Prodotto:</b> Polvere massima, solo da peperoncini locali selezionati.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_caroyellow" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Carolina Yellow</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️🌶️</span> 5 su 5</div><div><b>Scala Scoville:</b> 1.500.000–2.000.000 SHU</div><p><b>Descrizione peperoncino:</b> Variante gialla, punta aromatica più fresca.</p><p><b>Prodotto:</b> Polvere potentissima a km zero, perfetta per rendere ogni piatto “di fuoco”.</p><button class=" btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_bigmama" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Big Mama Mustard</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️</span> 4 su 5</div><div><b>Scala Scoville:</b> 900.000–1.200.000 SHU</div><p><b>Descrizione peperoncino:</b> Piccantezza notevole, gusto erbaceo e originale.</p><p><b>Prodotto:</b> Polvere da Big Mama locale, per ricette innovative e creative.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
+    <div id="detail_polveri_habCaramel" class="form-page detail-page"><div class="category-header"><i class="fa-solid fa-pepper-hot"></i><h2>Polvere di Habanero Caramel</h2></div><div class="spicy-level"><span style="color:#d32f2f;">🌶️🌶️🌶️</span><span style="color:#e0e0e0;">🌶️🌶️</span> 3 su 5</div><div><b>Scala Scoville:</b> 200.000–300.000 SHU</div><p><b>Descrizione peperoncino:</b> Aroma dolce, colore caramello, delicato rispetto ai super-hot.</p><p><b>Prodotto:</b> Polvere gourmet, perfetta per piatti dolci-salati a base di ingredienti locali.</p><button class="btn-outline" onclick="goBack()">Torna indietro</button></div>
   </main>
 </body>
 </html>
+
